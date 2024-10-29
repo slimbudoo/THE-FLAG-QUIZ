@@ -39,9 +39,12 @@
       border-radius: 10px;
       transition: background-color 0.3s, color 0.3s;
     }
+    /* Removed hover effect */
+    /*
     .option-button:hover {
       background-color: #b2dfdb;
     }
+    */
     .option-button.correct {
       background-color: #4CAF50;
       color: #ffffff;
@@ -73,6 +76,7 @@
       font-size: 24px;
     }
     #progress-bar-container {
+      position: relative;
       width: 100%;
       background-color: #ccc;
       border-radius: 15px;
@@ -86,6 +90,19 @@
       background-color: #4CAF50;
       border-radius: 15px;
       transition: width 0.5s;
+    }
+    #progress-text {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.5);
+      pointer-events: none;
     }
   </style>
 </head>
@@ -103,6 +120,7 @@
     <div id="hi-score">Hi-Score: <span id="high-score">0</span></div>
     <div id="progress-bar-container">
       <div id="progress-bar"></div>
+      <div id="progress-text">Progress</div>
     </div>
   </div>
   <script>
@@ -345,7 +363,7 @@
       optionButtons.forEach(button => button.disabled = true);
       const correctCountryName = remainingCountries[currentCountryIndex].name;
       const correctIndex = Array.from(optionButtons).findIndex(button => button.innerText === correctCountryName);
-      if (selectedIndex === correctIndex) {
+      if (optionButtons[selectedIndex].innerText === correctCountryName) {
         optionButtons[selectedIndex].classList.add("correct");
         score++;
         document.getElementById("counter").innerText = `${score}/197`;
